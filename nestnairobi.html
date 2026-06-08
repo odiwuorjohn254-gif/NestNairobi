@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NestNairobi — Short Stays in Vet & Beyond</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F9F6F0;
+    --deep: #1A1A14;
+    --gold: #C8973A;
+    --gold-light: #F0D9A8;
+    --green: #2C5F3F;
+    --green-light: #EAF2EC;
+    --muted: #7A7668;
+    --border: rgba(26,26,20,0.1);
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(249,246,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600;
+    color: var(--deep); letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    font-size: 14px; color: var(--muted); text-decoration: none;
+    font-weight: 400; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--deep); }
+  .nav-cta {
+    background: var(--green); color: var(--white) !important;
+    padding: 9px 20px; border-radius: 8px;
+    font-weight: 500 !important; font-size: 13px !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #1e4a2e !important; color: var(--white) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 88vh;
+    padding: 80px 5% 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-text { animation: fadeUp 0.8s ease both; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-light); color: var(--green);
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.05em;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--green); border-radius: 50%;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 1.05;
+    color: var(--deep);
+    margin-bottom: 20px;
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 16px; color: var(--muted);
+    line-height: 1.7; max-width: 440px; margin-bottom: 36px;
+  }
+
+  /* SEARCH BOX */
+  .search-box {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    box-shadow: 0 4px 32px rgba(26,26,20,0.06);
+  }
+  .search-field label {
+    display: block; font-size: 11px; font-weight: 500;
+    color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .search-field input, .search-field select {
+    width: 100%; border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px; color: var(--deep);
+    background: var(--cream); outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-field input:focus, .search-field select:focus {
+    border-color: var(--green);
+  }
+  .search-btn {
+    background: var(--gold); color: var(--white);
+    border: none; border-radius: 10px;
+    padding: 12px 24px; font-family: 'Outfit', sans-serif;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background 0.2s; white-space: nowrap;
+  }
+  .search-btn:hover { background: #b5832d; }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    position: relative;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 160px;
+    gap: 12px;
+  }
+  .hero-img {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--gold-light);
+  }
+  .hero-img:first-child {
+    grid-row: span 2;
+    background: linear-gradient(160deg, #2C5F3F 0%, #4a8a63 100%);
+  }
+  .hero-img.img2 { background: linear-gradient(160deg, #C8973A 0%, #e8b86d 100%); }
+  .hero-img.img3 { background: linear-gradient(160deg, #7A7668 0%, #aaa99a 100%); }
+
+  .img-label {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 16px;
+  }
+  .img-label strong {
+    font-size: 15px; font-weight: 600; color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .img-label span { font-size: 11px; color: rgba(255,255,255,0.75); }
+
+  .floating-badge {
+    position: absolute; bottom: 20px; left: -20px;
+    background: var(--white); border-radius: 12px;
+    padding: 12px 16px; border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 8px 24px rgba(26,26,20,0.1);
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .badge-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .badge-text strong { display: block; font-size: 14px; font-weight: 600; }
+  .badge-text span { font-size: 11px; color: var(--muted); }
+
+  /* CONTACT STRIP */
+  .contact-strip {
+    background: var(--green);
+    padding: 18px 5%;
+    display: flex; align-items: center; justify-content: center;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .contact-strip p {
+    color: rgba(255,255,255,0.8); font-size: 13px;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .contact-item a {
+    color: var(--white); text-decoration: none;
+    font-weight: 500; font-size: 14px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: background 0.2s;
+  }
+  .contact-item a:hover { background: rgba(255,255,255,0.1); }
+  .contact-item a svg { flex-shrink: 0; }
+
+  /* LISTINGS */
+  .section { padding: 80px 5%; }
+  .section-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 36px;
+  }
+  .section-label {
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1; color: var(--deep);
+  }
+  .see-all {
+    color: var(--green); font-size: 14px; font-weight: 500;
+    text-decoration: none; border-bottom: 1px solid var(--green);
+    padding-bottom: 2px; white-space: nowrap;
+  }
+
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .listing-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+    animation: fadeUp 0.6s ease both;
+  }
+  .listing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26,26,20,0.1);
+  }
+  .card-img {
+    height: 200px;
+    display: flex; align-items: flex-end; padding: 12px;
+    position: relative;
+  }
+  .card-badge {
+    background: var(--white); border-radius: 6px;
+    padding: 4px 10px; font-size: 11px; font-weight: 600;
+    color: var(--deep);
+  }
+  .fav-btn {
+    position: absolute; top: 12px; right: 12px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none; font-size: 15px;
+    transition: transform 0.2s;
+  }
+  .fav-btn:hover { transform: scale(1.15); }
+  .card-body { padding: 16px; }
+  .card-location {
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600;
+    color: var(--deep); margin-bottom: 8px; line-height: 1.2;
+  }
+  .card-meta {
+    display: flex; gap: 12px;
+    font-size: 12px; color: var(--muted); margin-bottom: 12px;
+  }
+  .card-footer {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .card-price strong { font-size: 18px; font-weight: 600; color: var(--deep); }
+  .card-price span { font-size: 12px; color: var(--muted); }
+  .card-rating { display: flex; align-items: center; gap: 4px; font-size: 13px; }
+  .card-rating .star { color: var(--gold); }
+
+  .book-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .book-btn:hover { background: #1e4a2e; }
+
+  /* HOW IT WORKS */
+  .how-section {
+    background: var(--deep);
+    padding: 80px 5%;
+    color: var(--white);
+  }
+  .how-section .section-label { color: var(--gold); }
+  .how-section h2 { color: var(--white); margin-bottom: 48px; }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 32px;
+  }
+  .step { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px; }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; color: var(--gold);
+    opacity: 0.6; line-height: 1; margin-bottom: 12px;
+  }
+  .step h3 {
+    font-size: 17px; font-weight: 500;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .step p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--gold-light);
+    border-radius: 20px;
+    margin: 0 5% 80px;
+    padding: 48px;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cta-banner h2 { font-size: clamp(24px, 3vw, 36px); }
+  .cta-banner p { color: var(--muted); font-size: 15px; margin-top: 8px; }
+  .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green); color: var(--white);
+    padding: 13px 28px; border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: #1e4a2e; }
+  .btn-wa {
+    background: #25D366; color: var(--white);
+    padding: 13px 28px; border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-wa:hover { background: #1db954; }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); color: rgba(255,255,255,0.5);
+    padding: 40px 5%;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: var(--white); font-weight: 600;
+  }
+  .footer-logo span { color: var(--gold); }
+  footer p { font-size: 13px; }
+  .footer-contact a {
+    color: var(--gold); text-decoration: none; font-size: 14px;
+    font-weight: 500;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; }
+    .search-box { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .contact-strip { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Nest<span>Nairobi</span></div>
+  <div class="nav-links">
+    <a href="#listings">Listings</a>
+    <a href="#how">How it works</a>
+    <a href="tel:0715666440">0715 666 440</a>
+    <a href="https://wa.me/254715666440" class="nav-cta">Book on WhatsApp</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Short stays · Veterinary / Vet, Nairobi</div>
+    <h1>Find your <em>perfect</em> nest in Nairobi</h1>
+    <p class="hero-sub">Premium short-stay apartments and homes in Vet and across Nairobi. Book by call or WhatsApp — no apps needed.</p>
+
+    <div class="search-box">
+      <div class="search-field">
+        <label>Location</label>
+        <input type="text" value="Vet, Nairobi" placeholder="Where to?"/>
+      </div>
+      <div class="search-field">
+        <label>Check in</label>
+        <input type="date"/>
+      </div>
+      <div class="search-field">
+        <label>Guests</label>
+        <select>
+          <option>1 guest</option>
+          <option>2 guests</option>
+          <option selected>3 guests</option>
+          <option>4+ guests</option>
+        </select>
+      </div>
+      <button class="search-btn" onclick="document.getElementById('listings').scrollIntoView({behavior:'smooth'})">Search</button>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-img-grid">
+      <div class="hero-img">
+        <div class="img-label">
+          <strong>Vet Estate Apartment</strong>
+          <span>From KSh 3,500/night</span>
+        </div>
+      </div>
+      <div class="hero-img img2">
+        <div class="img-label">
+          <strong>Studio Near UoN</strong>
+          <span>From KSh 2,800/night</span>
+        </div>
+      </div>
+      <div class="hero-img img3">
+        <div class="img-label">
+          <strong>Family Bungalow</strong>
+          <span>From KSh 6,500/night</span>
+        </div>
+      </div>
+    </div>
+    <div class="floating-badge">
+      <div class="badge-icon">📍</div>
+      <div class="badge-text">
+        <strong>Vet, Nairobi</strong>
+        <span>12 listings available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <p>Book directly — no service fees, no apps</p>
+  <div class="contact-item">
+    <a href="tel:0715666440">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.64a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      Call: 0715 666 440
+    </a>
+  </div>
+  <div class="contact-item">
+    <a href="https://wa.me/254715666440?text=Hi%20NestNairobi!%20I'd%20like%20to%20book%20a%20stay." target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp: 0715 666 440
+    </a>
+  </div>
+</div>
+
+<!-- LISTINGS -->
+<section class="section" id="listings">
+  <div class="section-header">
+    <div>
+      <p class="section-label">Available now</p>
+      <h2>Stays in Vet, Nairobi</h2>
+    </div>
+    <a href="#" class="see-all">See all listings</a>
+  </div>
+
+  <div class="listings-grid">
+
+    <!-- Card 1 -->
+    <div class="listing-card" style="animation-delay:0.05s">
+      <div class="card-img" style="background: linear-gradient(160deg,#2C5F3F,#4a8a63);">
+        <span class="card-badge">Entire apartment</span>
+        <button class="fav-btn" aria-label="Save">♡</button>
+      </div>
+      <div class="card-body">
+        <p class="card-location">📍 Vet Estate, Nairobi</p>
+        <p class="card-title">Modern 1BR in Vet Estate</p>
+        <div class="card-meta">
+          <span>2 guests</span>
+          <span>·</span>
+          <span>1 bed</span>
+          <span>·</span>
+          <span>WiFi</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-price">
+            <strong>KSh 3,500</strong>
+            <span> / night</span>
+          </div>
+          <div class="card-rating">
+            <span class="star">★</span> 4.9
+          </div>
+        </div>
+        <button class="book-btn" onclick="window.open('https://wa.me/254715666440?text=Hi!%20I%27d%20like%20to%20book%20the%20Modern%201BR%20in%20Vet%20Estate.','_blank')">Book via WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="listing-card" style="animation-delay:0.1s">
+      <div class="card-img" style="background: linear-gradient(160deg,#C8973A,#e8b86d);">
+        <span class="card-badge">Studio</span>
+        <button class="fav-btn" aria-label="Save">♡</button>
+      </div>
+      <div class="card-body">
+        <p class="card-location">📍 Vet Lane, Nairobi</p>
+        <p class="card-title">Cosy Studio Near Vet Market</p>
+        <div class="card-meta">
+          <span>1–2 guests</span>
+          <span>·</span>
+          <span>Studio</span>
+          <span>·</span>
+          <span>Kitchen</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-price">
+            <strong>KSh 2,800</strong>
+            <span> / night</span>
+          </div>
+          <div class="card-rating">
+            <span class="star">★</span> 4.7
+          </div>
+        </div>
+        <button class="book-btn" onclick="window.open('https://wa.me/254715666440?text=Hi!%20I%27d%20like%20to%20book%20the%20Cosy%20Studio%20Near%20Vet%20Market.','_blank')">Book via WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="listing-card" style="animation-delay:0.15s">
+      <div class="card-img" style="background: linear-gradient(160deg,#7A7668,#b0aea0);">
+        <span class="card-badge">Entire house</span>
+        <button class="fav-btn" aria-label="Save">♡</button>
+      </div>
+      <div class="card-body">
+        <p class="card-location">📍 Vet Road, Nairobi</p>
+        <p class="card-title">Spacious 3BR Family Home</p>
+        <div class="card-meta">
+          <span>6 guests</span>
+          <span>·</span>
+          <span>3 beds</span>
+          <span>·</span>
+          <span>Parking</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-price">
+            <strong>KSh 6,500</strong>
+            <span> / night</span>
+          </div>
+          <div class="card-rating">
+            <span class="star">★</span> 4.8
+          </div>
+        </div>
+        <button class="book-btn" onclick="window.open('https://wa.me/254715666440?text=Hi!%20I%27d%20like%20to%20book%20the%20Spacious%203BR%20Family%20Home.','_blank')">Book via WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="listing-card" style="animation-delay:0.2s">
+      <div class="card-img" style="background: linear-gradient(160deg,#3C3489,#6b62c4);">
+        <span class="card-badge">Private room</span>
+        <button class="fav-btn" aria-label="Save">♡</button>
+      </div>
+      <div class="card-body">
+        <p class="card-location">📍 Vet Centre, Nairobi</p>
+        <p class="card-title">Quiet Room with En-suite</p>
+        <div class="card-meta">
+          <span>1 guest</span>
+          <span>·</span>
+          <span>1 bed</span>
+          <span>·</span>
+          <span>Breakfast</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-price">
+            <strong>KSh 1,900</strong>
+            <span> / night</span>
+          </div>
+          <div class="card-rating">
+            <span class="star">★</span> 4.6
+          </div>
+        </div>
+        <button class="book-btn" onclick="window.open('https://wa.me/254715666440?text=Hi!%20I%27d%20like%20to%20book%20the%20Quiet%20Room%20with%20En-suite.','_blank')">Book via WhatsApp</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <p class="section-label">Simple process</p>
+  <h2>How NestNairobi works</h2>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Browse listings</h3>
+      <p>Explore our curated short-stay properties in Vet and around Nairobi.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Call or WhatsApp us</h3>
+      <p>No complicated apps. Just message or call 0715 666 440 to check availability.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Confirm & pay</h3>
+      <p>We'll send you payment details via M-Pesa. Simple, fast, secure.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Check in & enjoy</h3>
+      <p>Receive your check-in instructions and settle into your Nairobi nest.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div>
+    <h2>Ready to find your nest?</h2>
+    <p>Reach us directly — no booking fees, no waiting. Just great stays in Vet, Nairobi.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="tel:0715666440" class="btn-primary">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.64a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      Call Now
+    </a>
+    <a href="https://wa.me/254715666440?text=Hi%20NestNairobi!%20I%27d%20like%20to%20book%20a%20stay%20in%20Vet." target="_blank" class="btn-wa">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Nest<span>Nairobi</span></div>
+  <p>© 2026 NestNairobi · Short stays in Vet, Nairobi</p>
+  <div class="footer-contact">
+    <a href="tel:0715666440">0715 666 440</a> &nbsp;·&nbsp;
+    <a href="https://wa.me/254715666440" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+</body>
+</html>
